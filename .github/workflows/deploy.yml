@@ -3,7 +3,7 @@ name: Deploy Website to Ubuntu Server
 on:
   push:
     branches:
-      - main  # Change this if you use a different branch
+      - main  # Change if you use a different branch
 
 jobs:
   deploy:
@@ -22,7 +22,7 @@ jobs:
       - name: Deploy Code to Server
         run: |
           ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@${{ secrets.SERVER_IP }} << 'EOF'
-          cd /var/www/html/remote  # Change this if your project is in a different directory
+          cd /var/www/html/remote  # Change if your project is in a different directory
           git pull origin main
           chmod -R 775 /var/www/html/remote
           chown -R www-data:www-data /var/www/html/remote
