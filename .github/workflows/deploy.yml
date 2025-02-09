@@ -17,12 +17,12 @@ jobs:
         run: |
           echo "${{ secrets.DEPLOY_KEY }}" > deploy_key
           chmod 600 deploy_key
-          ssh -o StrictHostKeyChecking=no -i deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH Connection Successful'"
+          ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@${{ secrets.SERVER_IP }} "echo 'SSH Connection Successful'"
 
       - name: Deploy Code to Server
         run: |
-          ssh -o StrictHostKeyChecking=no -i deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          cd /var/www/html/remote  # Change this to your actual web directory
+          ssh -o StrictHostKeyChecking=no -i deploy_key ubuntu@${{ secrets.SERVER_IP }} << 'EOF'
+          cd /var/www/html/remote  # Change this if your project is in a different directory
           git pull origin main
           chmod -R 775 /var/www/html/remote
           chown -R www-data:www-data /var/www/html/remote
